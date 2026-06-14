@@ -3,28 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J.A.R.V.I.S. AI</title>
+    <title>Md Sahil Ahmad | Cinematic Video Editor</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>J.A.R.V.I.S</h1>
-        <div class="status" id="status">Status: Awaiting API Key</div>
+
+    <nav class="glass-nav">
+        <div class="logo">SAHIL<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#expertise">Arsenal</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-city-at-night-aerial-view-39294-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <div class="subtitle animate-text">Md Sahil Ahmad</div>
+            <h1 class="animate-text-cascade">Creating Visual<br><span>Masterpieces</span></h1>
+            <p class="description animate-text">Cinematic Storytelling. Precision Editing. Unforgettable Visual Pacing.</p>
+            <a href="#portfolio" class="btn-primary animate-text">View My Reel</a>
+        </div>
+    </header>
+
+    <section id="portfolio">
+        <div class="section-title scroll-reveal">
+            <h2>The Showcase</h2>
+            <div class="line"></div>
+        </div>
         
-        <div class="jarvis-circle" id="start-btn">
-            <div class="inner-circle"></div>
-        </div>
+        <div class="video-grid">
+            <div class="video-card scroll-reveal" data-scroll-delay="100">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1" title="Project 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="project-info">
+                    <h3>Commercial Brand Anthem</h3>
+                    <p>Editing & Sound Design</p>
+                </div>
+            </div>
 
-        <div class="config">
-            <input type="password" id="api-key" placeholder="Enter Gemini API Key">
-            <button id="save-key">Initialize</button>
-        </div>
+            <div class="video-card scroll-reveal" data-scroll-delay="200">
+                <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/76979871?h=8272103f6e" title="Project 2" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="project-info">
+                    <h3>Music Video Cut</h3>
+                    <p>Editing, VFX & Color Grading</p>
+                </div>
+            </div>
 
-        <div class="box">
-            <p><strong>You:</strong> <span id="user-text">...</span></p>
-            <p><strong>JARVIS:</strong> <span id="jarvis-text">...</span></p>
+            <div class="video-card scroll-reveal" data-scroll-delay="300">
+                <div class="video-container">
+                    <video controls poster="thumbnail.jpg">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-production-of-different-types-of-bread-in-bakery-45366-large.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="project-info">
+                    <h3>Short Film Trailer</h3>
+                    <p>Lead Editor</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section id="expertise">
+        <div class="section-title scroll-reveal">
+            <h2>The Arsenal</h2>
+            <div class="line"></div>
+        </div>
+        <div class="skills-container scroll-reveal">
+            <div class="skill-box" data-scroll-delay="100">Adobe Premiere Pro</div>
+            <div class="skill-box" data-scroll-delay="200">DaVinci Resolve</div>
+            <div class="skill-box" data-scroll-delay="300">After Effects</div>
+            <div class="skill-box" data-scroll-delay="400">Color Grading</div>
+            <div class="skill-box" data-scroll-delay="500">Sound Design</div>
+            <div class="skill-box" data-scroll-delay="600">Motion Graphics</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-box scroll-reveal">
+            <h2>Let's Create Together</h2>
+            <p>Available for freelance projects and collaborations worldwide.</p>
+            <a href="mailto:your.email@example.com" class="btn-primary">Start a Project</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Md Sahil Ahmad. All Rights Reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
