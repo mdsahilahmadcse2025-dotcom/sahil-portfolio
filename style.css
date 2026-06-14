@@ -1,0 +1,121 @@
+body {
+    background-color: #050b14;
+    color: #00f0ff;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+h1 {
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px #00f0ff;
+    margin: 0;
+}
+
+.status {
+    font-size: 0.9rem;
+    color: #00a8ff;
+    text-transform: uppercase;
+}
+
+/* Arc Reactor Style */
+.jarvis-circle {
+    width: 160px;
+    height: 160px;
+    border: 5px solid #00f0ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 25px #00f0ff, inset 0 0 25px #00f0ff;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.3s ease;
+}
+
+.jarvis-circle:active {
+    transform: scale(0.95);
+}
+
+.inner-circle {
+    width: 110px;
+    height: 110px;
+    border: 3px dashed #00f0ff;
+    border-radius: 50%;
+    animation: rotate 12s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Interactive States */
+.jarvis-circle.listening {
+    animation: pulse 1.5s infinite;
+    border-color: #ff0055;
+    box-shadow: 0 0 35px #ff0055, inset 0 0 25px #ff0055;
+}
+
+.jarvis-circle.listening .inner-circle {
+    border-color: #ff0055;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+.config {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    background: rgba(0, 240, 255, 0.05);
+    border: 1px solid #00f0ff;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    outline: none;
+    width: 200px;
+}
+
+button {
+    background: #00f0ff;
+    border: none;
+    color: #050b14;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #00a8ff;
+}
+
+.box {
+    width: 350px;
+    text-align: left;
+    background: rgba(0, 240, 255, 0.03);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    font-size: 0.95rem;
+    height: 120px;
+    overflow-y: auto;
+}

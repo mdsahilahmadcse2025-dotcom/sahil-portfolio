@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.A.R.V.I.S. AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>J.A.R.V.I.S</h1>
+        <div class="status" id="status">Status: Awaiting API Key</div>
+        
+        <div class="jarvis-circle" id="start-btn">
+            <div class="inner-circle"></div>
+        </div>
+
+        <div class="config">
+            <input type="password" id="api-key" placeholder="Enter Gemini API Key">
+            <button id="save-key">Initialize</button>
+        </div>
+
+        <div class="box">
+            <p><strong>You:</strong> <span id="user-text">...</span></p>
+            <p><strong>JARVIS:</strong> <span id="jarvis-text">...</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
