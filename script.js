@@ -1,112 +1,81 @@
-const startBtn = document.getElementById('start-btn');
-const statusText = document.getElementById('status');
-const userText = document.getElementById('user-text');
-const jarvisText = document.getElementById('jarvis-text');
-const apiKeyInput = document.getElementById('api-key');
-const saveKeyBtn = document.getElementById('save-key');
+document.addEventListener("DOMContentLoaded", function() {
 
-let apiKey = localStorage.getItem('jarvis_gemini_key') || '';
-
-if (apiKey) {
-    apiKeyInput.value = '••••••••••••••••••••';
-    statusText.innerText = 'Status: Systems Operational';
-}
-
-saveKeyBtn.addEventListener('click', () => {
-    const key = apiKeyInput.value.trim();
-    if (key && key !== '••••••••••••••••••••') {
-        localStorage.setItem('jarvis_gemini_key', key);
-        apiKey = key;
-        statusText.innerText = 'Status: Core Initialized';
-        alert('API Key loaded successfully.');
+    // --- On-Load Typography Animations (Apple Style Cascade) ---
+    const heroH1 = document.querySelector('.animate-text-cascade');
+    if (heroH1) {
+        // Split the text into separate span words to cascade them
+        const originalText = heroH1.innerHTML;
+        const words = originalText.split('<br>');
+        
+        let newContent = '';
+        words.forEach((line, index) => {
+            newContent += `<span class="cascade-line">${line}</span>`;
+            if (index < words.length - 1) newContent += '<br>';
+        });
+        
+        heroH1.innerHTML = newContent;
+        
+        // After setup, add the 'revealed' class with a slight delay
+        setTimeout(() => {
+            const cascadeLines = heroH1.querySelectorAll('.cascade-line');
+            cascadeLines.forEach((span, i) => {
+                setTimeout(() => {
+                    span.style.opacity = 1;
+                    span.style.transform = "translateY(0)";
+                }, i * 200); // 200ms delay between words for cascade effect
+            });
+        }, 100);
     }
-});
 
-// Speech Recognition Config
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-if (!SpeechRecognition) {
-    statusText.innerText = 'Status: Speech API Unsupported';
-} else {
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-
-    startBtn.addEventListener('click', () => {
-        if (!apiKey) {
-            alert('Please input your Gemini API Key to wake up JARVIS.');
-            return;
-        }
-        recognition.start();
+    // Trigger other simple animate-text elements
+    const fadeTexts = document.querySelectorAll('.animate-text');
+    fadeTexts.forEach((text, i) => {
+        setTimeout(() => {
+            text.classList.add('revealed');
+        }, 300 + (i * 150)); // Cascade them in gently
     });
 
-    recognition.onstart = () => {
-        statusText.innerText = 'Status: Listening...';
-        startBtn.classList.add('listening');
+
+    // --- Intersection Observer for Scroll Animations ---
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+
+    const appearOptions = {
+        threshold: 0.1, // Trigger early to make it feel responsive
+        rootMargin: "0px 0px -100px 0px" // Only trigger when near the visual area
     };
 
-    recognition.onresult = async (event) => {
-        startBtn.classList.remove('listening');
-        const command = event.results[0][0].transcript;
-        userText.innerText = command;
-        statusText.innerText = 'Status: Processing Matrix...';
-
-        const reply = await askAI(command);
-        jarvisText.innerText = reply;
-        speak(reply);
-    };
-
-    recognition.onerror = () => {
-        startBtn.classList.remove('listening');
-        statusText.innerText = 'Status: Input Error';
-    };
-
-    recognition.onend = () => {
-        startBtn.classList.remove('listening');
-    };
-}
-
-// REST Call to Gemini
-async function askAI(prompt) {
-    try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: `You are JARVIS, Tony Stark's sophisticated, highly intelligent, and slightly sarcastic British AI assistant. Answer the user prompt directly, conversationally, and keep it brief (maximum 2 sentences) so it sounds natural when spoken aloud. User says: "${prompt}"` }]
-                }]
-            })
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Animates once
+            }
         });
-        const data = await response.json();
-        return data.candidates[0].content.parts[0].text;
-    } catch (error) {
-        console.error(error);
-        return "Apologies Sir, I am having trouble reaching my central databanks.";
-    }
-}
+    }, appearOptions);
 
-// Text to Speech
-function speak(text) {
-    statusText.innerText = 'Status: Responding...';
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    // Attempt to match an English (UK) voice for standard JARVIS persona
-    const voices = window.speechSynthesis.getVoices();
-    const jarvisVoice = voices.find(v => v.lang.includes('en-GB') && v.name.toLowerCase().includes('male')) ||
-                        voices.find(v => v.lang.includes('en-GB')) || 
-                        voices[0];
-    
-    if (jarvisVoice) utterance.voice = jarvisVoice;
-    utterance.rate = 1.05;
-    utterance.pitch = 0.95;
+    revealElements.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
 
-    utterance.onend = () => {
-        statusText.innerText = 'Status: Systems Operational';
-    };
-    
-    window.speechSynthesis.speak(utterance);
-}
 
-// Trigger voice pre-loading for Chrome compatibility
-window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+    // --- Smooth Scrolling with URL Update ---
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                // Ensure smoothness, even on non-supporting browsers
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Keep the URL tidy
+                history.pushState(null, null, `#${targetId}`);
+            }
+        });
+    });
+});
